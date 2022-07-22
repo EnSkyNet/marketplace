@@ -3,23 +3,11 @@ package main.java.marketplace;
 import java.util.*;
 
 public class Services {
-    private int userId = 103;
-    private int productId = 3;
+    private int userId = 100;
+    private int productId = 0;
     private List<Products> productsList;
     private List<Users> usersList;
     private Map<Integer, List<Products>> mapUsers;
-
-    public List<Users> getUsersList() {
-        return usersList;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
 
     public void addProduct(Products product) {
         if (productsList == null) {
@@ -64,14 +52,6 @@ public class Services {
         }
     }
 
-  /*  public void addUserProduct(Users user) {
-        if (mapUsers == null) {
-            mapUsers = new HashMap<>();
-        }
-        List<Products> productsBuy = new ArrayList<>();
-        mapUsers.put(user.getId(), productsBuy);
-    }*/
-
     public void addProductForUser() {
         if (mapUsers == null || mapUsers.isEmpty()) {
             System.out.println("No user!");
@@ -85,7 +65,7 @@ public class Services {
             if (findUser(userId) != null && findProduct(productId) != null) {
                 int temp = findUser(userId).getMoney() - findProduct(productId).getPrice();
                 if (temp < 0) {
-                    System.out.println("Insufficient funds to pay!");
+                    throw new MyExceptions("Insufficient funds to pay!");
                 } else {
                     findUser(userId).setMoney(temp);
                     mapUsers.get(userId).add(findProduct(productId));
@@ -115,33 +95,68 @@ public class Services {
         return null;
     }
 
+    public Products newProduct() {
+        System.out.println("Create new product ");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter product name: ");
+        String productName = scanner.nextLine();
+        if (productName == null || productName.isEmpty()) {
+            throw new MyExceptions("Invalid product name");
+        }
+        System.out.print("Enter price: ");
+        int price = scanner.nextInt();
+        if (price <= 0) {
+            throw new MyExceptions("Price must be more than 0!");
+        }
+        productId++;
+        return new Products(productId, productName, price);
+    }
+
     public Users newUser() {
-        userId++;
         System.out.println("Create new user: ");
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter first name: ");
-        String firstName = scanner.next();
+        String firstName = scanner.nextLine();
+        if (firstName == null || firstName.isEmpty()) {
+            throw new MyExceptions("Name must not be empty!");
+        }
         System.out.print("Enter second name: ");
-        String secondName = scanner.next();
+        String secondName = scanner.nextLine();
+        if (secondName == null || secondName.isEmpty()) {
+            throw new MyExceptions("Second Name must not be empty!");
+        }
         System.out.print("Enter money: ");
         int money = scanner.nextInt();
+        if (money <= 0) {
+            throw new MyExceptions("Money must be more than 0!");
+        }
+        userId++;
         return new Users(userId, firstName, secondName, money);
     }
 
-   /* public void showUsers() {
+    public void removeUser(int id) {
         if (mapUsers == null || mapUsers.isEmpty()) {
-            System.out.println("No users!");
-            System.out.println();
+            System.out.println("There are no users to remove!");
+        } else if (mapUsers.containsKey(id)) {
+            mapUsers.remove(findUser(id));
+            usersList.remove(findUser(id));
         } else {
-            System.out.println("Users are: ");
-            mapUsers.forEach((key, value) -> {
-                System.out.print(key.getId() + " " + key.getFirstName()
-                        + " " + key.getSecondName()
-                        + " " + key.getMoney());
-                System.out.println();
-            });
+            System.out.println(id + " is absent!");
         }
-    }*/
+    }
+
+    public void removeProduct(int id) {
+        if (productsList == null || productsList.isEmpty()) {
+            System.out.println("There are no products to remove!");
+        } else if (productsList != null) {
+            mapUsers.forEach((key, value) -> {
+                value.removeIf(products -> products.getId() == id);
+            });
+            productsList.remove(findProduct(id));
+        } else {
+            System.out.println(id + " is absent!");
+        }
+    }
 
     public void showUserProducts(int userId) {
         if (mapUsers == null || mapUsers.isEmpty()) {
@@ -164,25 +179,11 @@ public class Services {
             System.out.println("No product buy!");
             System.out.println();
         } else {
-            System.out.println("This product is buy by user: ");
+            System.out.println("Users that bought product: ");
             mapUsers.forEach((key, value) -> {
-
-                    //System.out.print(key + ": ");
-                    value.forEach(v -> {
-                        if(v.getId() == productId){
-                            System.out.println(key);
-                        };
-                    });
-                    System.out.println();
-
+                if (value.stream().anyMatch(v -> v.getId() == productId)) System.out.println(key);
             });
+            System.out.println();
         }
     }
-
-    /*private Integer findUser(int id) {
-        return mapUsers.entrySet()
-                .stream()
-                .filter(k -> k.getKey() == id)
-                .findFirst().map(Map.Entry::getKey).orElse(null);
-    }*/
 }

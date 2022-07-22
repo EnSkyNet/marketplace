@@ -10,16 +10,15 @@ public class Marketplace {
         String nickName;
         Scanner scanner = new Scanner(System.in);
         Services services = new Services();
-        int choise = 6;
+        int choise = 10;
 
-        services.addProduct(new Products(1, "apple", 10));
-        services.addProduct(new Products(2, "cherry", 15));
-        services.addProduct(new Products(3, "cola", 7));
+        services.addProduct(new Products(21, "apple", 10));
+        services.addProduct(new Products(22, "cherry", 15));
+        services.addProduct(new Products(23, "cola", 7));
 
-        services.addUser(new Users(101,"Nazar", "Nazarov",50));
-        services.addUser(new Users(102,"Ivan", "Ivanov", 60));
-        services.addUser(new Users(103,"Stepan", "Stepanov", 70));
-
+        services.addUser(new Users(201, "Nazar", "Nazarov", 50));
+        services.addUser(new Users(202, "Ivan", "Ivanov", 60));
+        services.addUser(new Users(203, "Stepan", "Stepanov", 70));
 
         while (choise > 0) {
             System.out.println();
@@ -29,56 +28,62 @@ public class Marketplace {
             System.out.println(" 3. User buy product");
             System.out.println(" 4. Display list of user products by user id.");
             System.out.println(" 5. Display list of users that bought product by product id");
+            System.out.println(" 6. Add new product");
+            System.out.println(" 7. Add new user");
+            System.out.println(" 8. Delete product");
+            System.out.println(" 9. Delete user");
             System.out.println(" 0. Exit.");
             System.out.print(" Enter your choice: ");
             choise = scanner.nextInt();
             System.out.println();
             switch (choise) {
-                case 1:
-                    services.showUsers();
-                    break;
-                case 2:
-                    services.showProducts();
-                    break;
-                case 3:
-                    services.addProductForUser();
-                    break;
-                case 4:
+                case 1 -> services.showUsers();
+                case 2 -> services.showProducts();
+                case 3 -> {
+                    try {
+                        services.addProductForUser();
+                    }catch (MyExceptions e){
+                        e.printStackTrace();
+                    }
+                }
+                case 4 -> {
                     System.out.print("Enter the person Id: ");
                     key = scanner.nextInt();
                     services.showUserProducts(key);
-                    break;
-                case 5:
+                }
+                case 5 -> {
                     System.out.print("Enter the product Id : ");
                     key = scanner.nextInt();
                     services.showUserWithProduct(key);
-                    break;
-
-                /*case 1:
-                    Users user = services.newUser();
-                    services.addUser(user);;
-                    break;
-                case 2:
-                    Animal animal = clubService.newAnimal();
-                    clubService.addAnimal(animal);
-                    break;
-                case 3:
-                    System.out.print("Enter the person: ");
-                    key = scanner.next();
-                    System.out.print("Enter the nickname of animal: ");
-                    nickName = scanner.next();
-                    clubService.removeAnimal(key, nickName);
-                    break;
-                case 4:
-                    System.out.print("Enter the person: ");
-                    key = scanner.next();
-                    clubService.removePerson(key);
-                    break;
-                case 5:
-                    clubService.showClub();
-                    break;*/
-                default:
-                    break;
+                }
+                case 6 -> {
+                    try{
+                        Products product = services.newProduct();
+                        services.addProduct(product);
+                    }catch (MyExceptions e){
+                        e.printStackTrace();
+                    }
+                }
+                case 7 -> {
+                    try {
+                        Users user = services.newUser();
+                        services.addUser(user);
+                    }catch (MyExceptions e){
+                        e.printStackTrace();
+                    }
+                }
+                case 8 -> {
+                    System.out.print("Enter the productId: ");
+                    key = scanner.nextInt();
+                    services.removeProduct(key);
+                }
+                case 9 -> {
+                    System.out.print("Enter the userId: ");
+                    key = scanner.nextInt();
+                    services.removeUser(key);
+                }
+                default -> {
+                }
             }
         }
     }
