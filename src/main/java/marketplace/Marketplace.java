@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Marketplace {
     public static void main(String[] args) {
-        String key;
+        int key;
         String nickName;
         Scanner scanner = new Scanner(System.in);
         Services services = new Services();
@@ -40,10 +40,19 @@ public class Marketplace {
                 case 2:
                     services.showProducts();
                     break;
-
-
-
-
+                case 3:
+                    services.addProductForUser();
+                    break;
+                case 4:
+                    System.out.print("Enter the person Id: ");
+                    key = scanner.nextInt();
+                    services.showUserProducts(key);
+                    break;
+                case 5:
+                    System.out.print("Enter the product Id : ");
+                    key = scanner.nextInt();
+                    services.showUserWithProduct(key);
+                    break;
 
                 /*case 1:
                     Users user = services.newUser();

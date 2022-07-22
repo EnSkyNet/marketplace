@@ -1,7 +1,7 @@
 package main.java.marketplace;
 
 public class Users {
-    private int id;
+    private Integer id;
     private String firstName;
     private String secondName;
     private int money;
