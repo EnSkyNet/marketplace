@@ -1,0 +1,63 @@
+*target*
+*node_modules*
+*.jar
+*.war
+*.ear
+*.class
+*test-output*
+
+# yarn
+yarn.lock
+
+# eclipse specific git ignore
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.factorypath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# STS (Spring Tool Suite)
+.springBeans
+
+#Clover
+.clover/
+
+# IntelliJ
+.idea
+*.iml
+*.pb
+/out/
+/.idea/
+/.idea/sonarlint/
+
+# yarn specific
+**/src/main/frontend/dist/**
+
+# marina db docker
+/mariadb
+
+lego_conf
+fake-pom.xml
+cachepaascli.yml
+info.yml
+mergedValidations.yml
+databaseChanges.json
+databaseChangesQueries.txt
+Dockerfile
+jmeter-repo
