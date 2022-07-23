@@ -138,7 +138,7 @@ public class Services {
         if (mapUsers == null || mapUsers.isEmpty()) {
             System.out.println("There are no users to remove!");
         } else if (mapUsers.containsKey(id)) {
-            mapUsers.remove(findUser(id));
+            mapUsers.remove(id);
             usersList.remove(findUser(id));
         } else {
             System.out.println(id + " is absent!");
@@ -163,11 +163,11 @@ public class Services {
             System.out.println("No users!");
             System.out.println();
         } else {
-            System.out.println("User have products: ");
+            System.out.print("User ");
             mapUsers.forEach((key, value) -> {
                 if (key == userId) {
-                    System.out.print(key + ": ");
-                    value.forEach(v -> System.out.print(v.getName()));
+                    System.out.println(key + " have products: ");
+                    value.forEach(v -> System.out.print(v.getName() + " "));
                     System.out.println();
                 }
             });

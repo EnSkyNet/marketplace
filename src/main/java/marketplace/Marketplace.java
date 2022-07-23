@@ -12,14 +12,18 @@ public class Marketplace {
         Services services = new Services();
         int choise = 10;
 
-        services.addProduct(new Products(21, "apple", 10));
-        services.addProduct(new Products(22, "cherry", 15));
-        services.addProduct(new Products(23, "cola", 7));
+        System.out.println("If you want to create a new Marketplace with the 3 products and  3 users you must enter 1 or else 2.");
+        System.out.print("Enter your choice: ");
+        key = scanner.nextInt();
+        if (key == 1) {
+            services.addProduct(new Products(21, "apple", 10));
+            services.addProduct(new Products(22, "cherry", 15));
+            services.addProduct(new Products(23, "cola", 7));
 
-        services.addUser(new Users(201, "Nazar", "Nazarov", 50));
-        services.addUser(new Users(202, "Ivan", "Ivanov", 60));
-        services.addUser(new Users(203, "Stepan", "Stepanov", 70));
-
+            services.addUser(new Users(201, "Nazar", "Nazarov", 50));
+            services.addUser(new Users(202, "Ivan", "Ivanov", 60));
+            services.addUser(new Users(203, "Stepan", "Stepanov", 70));
+        }
         while (choise > 0) {
             System.out.println();
             System.out.println("Menu by marketplace:");
@@ -42,7 +46,7 @@ public class Marketplace {
                 case 3 -> {
                     try {
                         services.addProductForUser();
-                    }catch (MyExceptions e){
+                    } catch (MyExceptions e) {
                         e.printStackTrace();
                     }
                 }
@@ -57,10 +61,10 @@ public class Marketplace {
                     services.showUserWithProduct(key);
                 }
                 case 6 -> {
-                    try{
+                    try {
                         Products product = services.newProduct();
                         services.addProduct(product);
-                    }catch (MyExceptions e){
+                    } catch (MyExceptions e) {
                         e.printStackTrace();
                     }
                 }
@@ -68,7 +72,7 @@ public class Marketplace {
                     try {
                         Users user = services.newUser();
                         services.addUser(user);
-                    }catch (MyExceptions e){
+                    } catch (MyExceptions e) {
                         e.printStackTrace();
                     }
                 }
