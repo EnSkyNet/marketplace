@@ -51,7 +51,7 @@ public class Marketplace {
                     }
                 }
                 case 4 -> {
-                    System.out.print("Enter the person Id: ");
+                    System.out.print("Enter the user Id: ");
                     key = scanner.nextInt();
                     services.showUserProducts(key);
                 }
