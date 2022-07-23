@@ -77,7 +77,7 @@ public class Services {
         }
     }
 
-    public Products findProduct(int productId) {
+    private Products findProduct(int productId) {
         for (Products p : productsList) {
             if (p.getId() == productId) {
                 return p;
@@ -86,7 +86,7 @@ public class Services {
         return null;
     }
 
-    public Users findUser(int userId) {
+    private Users findUser(int userId) {
         for (Users u : usersList) {
             if (u.getId() == userId) {
                 return u;
@@ -163,10 +163,9 @@ public class Services {
             System.out.println("No users!");
             System.out.println();
         } else {
-            System.out.print("User ");
             mapUsers.forEach((key, value) -> {
                 if (key == userId) {
-                    System.out.println(key + " have products: ");
+                    System.out.println("User " + key + " have products: ");
                     value.forEach(v -> System.out.print(v.getName() + " "));
                     System.out.println();
                 }
@@ -179,9 +178,11 @@ public class Services {
             System.out.println("No product buy!");
             System.out.println();
         } else {
-            System.out.println("Users that bought product: ");
             mapUsers.forEach((key, value) -> {
-                if (value.stream().anyMatch(v -> v.getId() == productId)) System.out.println(key);
+                if (value.stream().anyMatch(v -> v.getId() == productId)) {
+                    System.out.println("Users that bought product: ");
+                    System.out.print(key + " ");
+                }
             });
             System.out.println();
         }
